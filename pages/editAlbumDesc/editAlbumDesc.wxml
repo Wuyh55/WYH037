@@ -1,0 +1,8 @@
+<view class="edit-box">
+  <text class="title">编辑相册简介</text>
+  <textarea class="inp" style="height:200rpx" placeholder="填写相册整体简介" value="{{newDesc}}" bindinput="inputNewDesc"></textarea>
+  <view class="btns">
+    <button class="btn-gray" bindtap="goBack">取消</button>
+    <button class="btn-main" bindtap="saveDesc">保存</button>
+  </view>
+</view>

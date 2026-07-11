@@ -1,0 +1,8 @@
+<view class="edit-box">
+  <text class="title">编辑图片备注</text>
+  <textarea class="inp" style="height:200rpx" placeholder="填写这张图片的简介" value="{{currentImgDesc}}" bindinput="inputImgDesc"></textarea>
+  <view class="btns">
+    <button class="btn-gray" bindtap="goBack">取消</button>
+    <button class="btn-main" bindtap="saveImgDesc">保存备注</button>
+  </view>
+</view>

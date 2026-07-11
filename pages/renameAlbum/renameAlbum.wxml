@@ -1,0 +1,8 @@
+<view class="rename-box">
+  <text class="title">修改相册名称</text>
+  <input class="inp" placeholder="输入新相册名" value="{{newName}}" bindinput="inputNewName"/>
+  <view class="btns">
+    <button class="btn-gray" bindtap="goBack">取消</button>
+    <button class="btn-main" bindtap="saveRename">确定修改</button>
+  </view>
+</view>
