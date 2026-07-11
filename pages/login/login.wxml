@@ -1,0 +1,40 @@
+<view class="page-login">
+  <view class="login-avatar">
+    <image src="{{avatar}}" class="avatar-img" mode="aspectFill"></image>
+  </view>
+  <text class="title">用户登录</text>
+
+  <view wx:if="{{error}}" class="error-tip">{{error}}</view>
+
+  <view class="form-group">
+    <text class="label">用户名</text>
+    <view class="input-wrap">
+      <input class="input" placeholder="请输入用户名" value="{{username}}" bindinput="inputUsername" confirm-type="next"/>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <text class="label">密码</text>
+    <view class="input-wrap">
+      <input class="input" password placeholder="请输入密码" value="{{password}}" bindinput="inputPassword" confirm-type="done"/>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <text class="label">验证码</text>
+    <view class="captcha-wrap">
+      <view class="captcha-input-wrap">
+        <input class="captcha-input" placeholder="请输入验证码" value="{{captcha}}" bindinput="inputCaptcha" maxlength="6"/>
+      </view>
+      <!-- 替换image为文字验证码，复用原captcha-img样式类，尺寸圆角完全不变 -->
+      <text class="captcha-img" bindtap="refreshCaptcha">{{localCaptcha}}</text>
+    </view>
+  </view>
+
+  <button class="login-btn" bindtap="submitLogin">登录</button>
+  
+  <view class="register-link">
+    <text>没有账号？</text>
+    <text class="link" bindtap="goRegister">去注册</text>
+  </view>
+</view>
