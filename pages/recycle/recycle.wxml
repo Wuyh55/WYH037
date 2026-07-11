@@ -1,0 +1,48 @@
+<view class="page-wrap">
+  <!-- 已删除相册 -->
+  <view class="section-block">
+    <view class="section-head">
+      <text class="section-title">已删除相册</text>
+      <text class="section-count">{{albumRecycle.length}}个</text>
+    </view>
+    <view wx:if="{{albumRecycle.length === 0}}" class="empty-tip">暂无已删除相册</view>
+    <view class="grid-3">
+      <view wx:for="{{albumRecycle}}" wx:key="deleteTime" class="grid-item" bindtap="previewAlbum" data-index="{{index}}">
+        <view class="img-wrap">
+          <image wx:if="{{item.data.cover}}" src="{{item.data.cover}}" mode="aspectFill" class="grid-img"></image>
+          <image wx:elif="{{item.data.fileList && item.data.fileList[0] && item.data.fileList[0].url}}" src="{{item.data.fileList[0].url}}" mode="aspectFill" class="grid-img"></image>
+          <view wx:else class="img-placeholder">暂无封面</view>
+          <view wx:if="{{item.data.fileList && item.data.fileList.length > 0}}" class="img-count">{{item.data.fileList.length}}张</view>
+        </view>
+        <text class="item-name">{{item.data.name}}</text>
+        <view class="btn-row">
+          <button class="btn-sm btn-restore" bindtap="recoverItem" data-index="{{index}}" data-type="album">恢复</button>
+          <button class="btn-sm btn-del" bindtap="realDelete" data-index="{{index}}" data-type="album">删除</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已删除照片 -->
+  <view class="section-block">
+    <view class="section-head">
+      <text class="section-title">已删除照片</text>
+      <text class="section-count">{{imgRecycle.length}}张</text>
+    </view>
+    <view wx:if="{{imgRecycle.length === 0}}" class="empty-tip">暂无已删除照片</view>
+    <view class="grid-3">
+      <view wx:for="{{imgRecycle}}" wx:key="deleteTime" class="grid-item" bindtap="previewImg" data-index="{{index}}">
+        <view class="img-wrap">
+          <image wx:if="{{item.data.image}}" src="{{item.data.image}}" mode="aspectFill" class="grid-img"></image>
+          <image wx:elif="{{item.data.url}}" src="{{item.data.url}}" mode="aspectFill" class="grid-img"></image>
+          <view wx:else class="img-placeholder">失效</view>
+        </view>
+        <text class="item-name">{{item.albumName || '未命名'}}</text>
+        <view class="btn-row">
+          <button class="btn-sm btn-restore" bindtap="recoverItem" data-index="{{index}}" data-type="img">恢复</button>
+          <button class="btn-sm btn-del" bindtap="realDelete" data-index="{{index}}" data-type="img">删除</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
