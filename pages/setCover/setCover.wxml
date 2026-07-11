@@ -1,0 +1,39 @@
+<view class="wrap">
+  <view class="head">
+    <text class="main-title">设置相册封面</text>
+    <text class="sub-title">当前相册：{{albumName}}</text>
+  </view>
+
+  <view class="select-area">
+    <text class="label">选择封面图片</text>
+    <picker bindchange="changeImg" value="{{selectIndex}}" range="{{imgNameList}}">
+      <view class="picker-box">{{imgNameList[selectIndex]}}</view>
+    </picker>
+  </view>
+
+  <view wx:if="{{selectImgUrl}}" class="preview-selected">
+    <text class="preview-label">当前选中：</text>
+    <image src="{{selectImgUrl}}" mode="aspectFill" class="preview-img"></image>
+  </view>
+
+  <button class="save-btn" bindtap="saveCover">确定设置为封面</button>
+
+  <view class="divider"></view>
+
+  <view class="preview-area">
+    <text class="preview-title">点击图片快速选择</text>
+    <view class="img-grid">
+      <view 
+        wx:for="{{imgList}}" 
+        wx:key="url" 
+        class="img-item {{selectIndex === index + 1 ? 'selected' : ''}}"
+        bindtap="clickImg" 
+        data-index="{{index}}"
+      >
+        <image src="{{item.url}}" mode="aspectFill"></image>
+        <text class="img-name">{{item.desc || '图片' + (index + 1)}}</text>
+        <view wx:if="{{selectIndex === index + 1}}" class="check-mark">✓</view>
+      </view>
+    </view>
+  </view>
+</view>
