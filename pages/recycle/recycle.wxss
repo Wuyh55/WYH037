@@ -1,0 +1,148 @@
+/* pages/recycle/recycle.wxss */
+page {
+  background: #fff8e6;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.page-wrap {
+  width: 100%;
+  max-width: 750rpx;
+  padding: 30rpx 30rpx 40rpx;
+  box-sizing: border-box;
+  background: #fff8e6;
+  min-height: 100vh;
+}
+
+.section-block {
+  margin-bottom: 40rpx;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f0e6d8;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #6b4423;
+}
+
+.section-count {
+  font-size: 26rpx;
+  color: #b9a88c;
+}
+
+.empty-tip {
+  text-align: center;
+  color: #b9a88c;
+  font-size: 28rpx;
+  padding: 40rpx 0;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.grid-item {
+  background: #ffffff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(107, 68, 35, 0.06);
+}
+
+.img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f0ebe0;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #b9a88c;
+  background: #f5f0ea;
+}
+
+.img-count {
+  position: absolute;
+  top: 12rpx;
+  right: 12rpx;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.item-name {
+  display: block;
+  font-size: 24rpx;
+  color: #665848;
+  text-align: center;
+  padding: 16rpx 8rpx 8rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-row {
+  display: flex;
+  gap: 12rpx;
+  padding: 8rpx 12rpx 16rpx;
+}
+
+.btn-sm {
+  flex: 1;
+  height: 56rpx;
+  line-height: 56rpx;
+  font-size: 24rpx;
+  border: none;
+  border-radius: 8rpx;
+  text-align: center;
+  padding: 0;
+}
+
+.btn-restore {
+  background: #e8f0e0;
+  color: #5a7a4a;
+}
+
+.btn-restore:active {
+  opacity: 0.7;
+}
+
+.btn-del {
+  background: #f5e0dc;
+  color: #b85a4a;
+}
+
+.btn-del:active {
+  opacity: 0.7;
+}
+
+button::after {
+  border: none;
+}
