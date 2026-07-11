@@ -1,7 +1,8 @@
 # AI Code Review 报告
 
-> 使用 Trae AI 对"凉嘟嘟"微信小程序项目进行代码审查
+> 使用 Trae AI 对"岁岁安"微信小程序项目进行代码审查
 > 审查时间: 2026-06-20
+> 项目仓库: https://github.com/Wuyh55/WYH037
 
 ---
 
@@ -18,58 +19,35 @@
 
 ## 二、发现的问题与优化建议
 
-### 问题 1: 密码明文存储（安全性 - 高优先级）
+### 问题 1: 密码明文存储（安全性 - 高优先级）✅ 已修复
 
 **文件**: `cloudfunctions/login/index.js`
 
 **问题描述**: 用户密码以明文形式存储在数据库中，存在安全风险。
 
-```javascript
-// 当前代码 - 密码明文存储
-const res = await db.collection('users').add({
-  data: {
-    username,
-    password,  // ⚠️ 明文存储
-    avatar: avatar || '',
-    ...
-  }
-})
-```
-
-**优化建议**: 使用简单的哈希处理（如 MD5 或 SHA256）对密码进行加密存储。
+**修复方案**: 使用 SHA256 对密码进行哈希存储，并兼容旧数据（登录时自动将明文密码升级为哈希密码）。
 
 ```javascript
-// 建议修改
 const crypto = require('crypto')
-const hashedPassword = crypto.createHash('sha256').update(password).digest('hex')
+function hashPassword(password) {
+  return crypto.createHash('sha256').update(password).digest('hex')
+}
 ```
 
 ---
 
-### 问题 2: 缺少输入参数校验（健壮性 - 中优先级）
+### 问题 2: 缺少输入参数校验（健壮性 - 中优先级）✅ 已修复
 
-**文件**: `cloudfunctions/album/index.js`
+**文件**: 所有云函数 (`login`、`album`、`recycle`、`checkIn`)
 
 **问题描述**: 云函数未对传入参数进行校验，可能导致异常数据写入数据库。
 
-```javascript
-// 当前代码 - 无参数校验
-case 'add': {
-  const res = await db.collection(COLLECTION_NAME).add({
-    data: {
-      name: data.name,  // ⚠️ 未校验 name 是否为空
-      uid: data.uid,    // ️ 未校验 uid 是否存在
-      ...
-    }
-  })
-}
-```
-
-**优化建议**: 添加必要的参数校验。
+**修复方案**: 在每个云函数的每个 action 中添加参数校验。
 
 ```javascript
+// album 云函数示例
 case 'add': {
-  if (!data.name || !data.uid) {
+  if (!data || !data.name || !data.uid) {
     return { success: false, msg: '相册名称和用户ID不能为空' }
   }
   if (data.name.length > 50) {
@@ -81,116 +59,62 @@ case 'add': {
 
 ---
 
-### 问题 3: 数据库查询未限制返回数量（性能 - 中优先级）
+### 问题 3: 数据库查询未限制返回数量（性能 - 中优先级）⚠️ 待优化
 
 **文件**: `cloudfunctions/album/index.js`
 
 **问题描述**: `list` 操作未限制返回数量，当用户相册数量很大时可能影响性能。
 
-```javascript
-// 当前代码 - 无限制查询
-case 'list': {
-  const res = await db.collection(COLLECTION_NAME)
-    .where({ uid: data.uid })
-    .orderBy('createTime', 'desc')
-    .get()  // ⚠️ 默认最多返回20条，但未显式指定
-}
-```
-
-**优化建议**: 显式指定 limit 和分页参数。
-
-```javascript
-case 'list': {
-  const page = data.page || 1
-  const pageSize = data.pageSize || 20
-  const res = await db.collection(COLLECTION_NAME)
-    .where({ uid: data.uid })
-    .orderBy('createTime', 'desc')
-    .skip((page - 1) * pageSize)
-    .limit(pageSize)
-    .get()
-}
-```
+**优化建议**: 后续版本可添加分页参数 `page` 和 `pageSize`，使用 `.skip()` 和 `.limit()` 实现分页查询。
 
 ---
 
-### 问题 4: 前端云函数调用缺少统一错误处理（健壮性 - 中优先级）
+### 问题 4: 前端云函数调用缺少统一错误处理（健壮性 - 中优先级）✅ 已修复
 
 **文件**: `utils/storage.js`
 
-**问题描述**: 部分云函数调用函数（如 `cloudGetAlbumList`）没有 try-catch 包裹，而 `cloudAddAlbum` 有。错误处理不一致。
+**问题描述**: 部分云函数调用函数没有 try-catch 包裹，错误处理不一致。
+
+**修复方案**: 封装统一的 `callCloud()` 方法，所有云函数调用统一走该方法，自动捕获异常并返回友好错误信息。
 
 ```javascript
-// 有错误处理
-export const cloudAddAlbum = async (data) => {
-  try {
-    const res = await wx.cloud.callFunction({...})
-    return res.result || { success: false, msg: '云函数返回为空' }
-  } catch (err) {
-    console.error('cloudAddAlbum error:', err)
-    return { success: false, msg: '云函数调用失败' }
-  }
-}
-
-// 缺少错误处理 ️
-export const cloudGetAlbumList = async (uid) => {
-  const res = await wx.cloud.callFunction({...})
-  return res.result  // 如果调用失败会抛异常
-}
-```
-
-**优化建议**: 统一添加错误处理，或封装一个通用的云函数调用方法。
-
-```javascript
-// 建议：封装通用调用方法
-const callCloudFunction = async (name, data) => {
+const callCloud = async (name, data) => {
   try {
     const res = await wx.cloud.callFunction({ name, data })
     return res.result || { success: false, msg: '云函数返回为空' }
   } catch (err) {
-    console.error(`callFunction ${name} error:`, err)
-    return { success: false, msg: '网络异常，请重试' }
+    console.error(`callCloud [${name}] error:`, err)
+    return { success: false, msg: '网络异常，请检查网络连接后重试' }
   }
 }
 ```
 
 ---
 
-### 问题 5: Canvas 绘制缺少异常处理（健壮性 - 低优先级）
+### 问题 5: Canvas 绘制缺少异常处理（健壮性 - 低优先级）✅ 已修复
 
 **文件**: `pages/mine/mine.js`
 
 **问题描述**: `drawChinaMap()` 方法中 Canvas 节点获取可能失败，缺少兜底处理。
 
-```javascript
-// 当前代码
-query.select('#chinaMap').fields({ node: true, size: true, rect: true }).exec((res) => {
-  if (!res || !res[0] || !res[0].node) return  // ⚠️ 静默返回，用户无感知
-  // ...
-})
-```
-
-**优化建议**: 添加用户友好的错误提示。
+**修复方案**: 添加 `console.warn` 日志输出，方便排查问题。
 
 ```javascript
-query.select('#chinaMap').fields({ node: true, size: true, rect: true }).exec((res) => {
-  if (!res || !res[0] || !res[0].node) {
-    console.warn('Canvas节点获取失败')
-    return
-  }
-  // ...
-})
+if (!res || !res[0] || !res[0].node) {
+  console.warn('Canvas节点获取失败，无法绘制地图')
+  return
+}
 ```
 
 ---
 
-### 问题 6: 代码注释中有遗留的调试标记（代码规范 - 低优先级）
+### 问题 6: 代码注释中有遗留的调试标记（代码规范 - 低优先级）✅ 已修复
 
 **文件**: `cloudfunctions/album/index.js`
 
-**问题描述**: 代码中存在 `// ⚠️ 改成 COLLECTION_NAME` 的注释，这是开发过程中的调试标记，应清理。
+**问题描述**: 代码中存在 `// ⚠️ 改成 COLLECTION_NAME` 的调试注释。
 
-**优化建议**: 删除这些调试注释，保持代码整洁。
+**修复方案**: 已清理所有调试注释，保持代码整洁。
 
 ---
 
@@ -198,21 +122,22 @@ query.select('#chinaMap').fields({ node: true, size: true, rect: true }).exec((r
 
 | 维度 | 评分 | 说明 |
 |------|------|------|
-| 代码结构 | ⭐⭐⭐⭐ | 云函数按功能拆分，职责清晰 |
+| 代码结构 | ⭐⭐⭐⭐⭐ | 云函数按功能拆分，职责清晰，统一封装调用方法 |
 | 可读性 | ⭐⭐⭐⭐ | 命名规范，逻辑清晰 |
-| 健壮性 | ⭐⭐ | 部分缺少参数校验和错误处理 |
-| 安全性 | ⭐⭐ | 密码明文存储，需改进 |
-| 性能 | ⭐⭐⭐ | 基本满足需求，大数据量需优化 |
+| 健壮性 | ⭐⭐⭐⭐ | 已添加参数校验、统一错误处理、异常捕获 |
+| 安全性 | ⭐⭐⭐⭐ | 密码已使用SHA256哈希存储 |
+| 性能 | ⭐⭐⭐ | 基本满足需求，大数据量可考虑分页 |
 
-**综合评分**: ⭐⭐⭐ (3.2/5)
+**综合评分**: ⭐⭐⭐⭐ (4.0/5)
 
 ---
 
 ## 四、总结
 
-项目整体代码结构清晰，功能完整，云函数设计合理。主要改进方向：
-1. **安全性**：密码应加密存储
-2. **健壮性**：统一错误处理，添加参数校验
-3. **性能**：大数据量场景考虑分页查询
+项目整体代码结构清晰，功能完整，云函数设计合理。经过本次代码审查和优化，主要改进：
+1. **安全性**：密码已使用 SHA256 哈希加密存储 ✅
+2. **健壮性**：已统一错误处理，添加参数校验 ✅
+3. **代码规范**：已清理调试注释 ✅
+4. **性能**：分页查询可在后续版本中优化 ⚠️
 
-以上问题不影响核心功能运行，属于优化建议范畴。
+项目已达到良好的代码质量标准，可以正常运行。
