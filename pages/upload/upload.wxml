@@ -1,0 +1,20 @@
+<view class="upload-page">
+  <view class="page-title-wrap">
+    <text class="page-title">上传文件至：{{album.name}}</text>
+  </view>
+
+  <view class="upload-box">
+    <button class="main-btn select-btn" bindtap="selectMedia">选择图片/视频</button>
+
+    <!-- 【修改】横向scroll-x 替换为网格容器，去掉scroll-x -->
+    <view class="file-grid">
+      <view class="file-item" wx:for="{{selectFiles}}" wx:key="tempFilePath">
+        <image src="{{item.tempFilePath}}" mode="aspectFill"></image>
+        <text class="del-file" bindtap="delSelectFile" data-index="{{index}}">×</text>
+      </view>
+    </view>
+
+    <textarea class="input-box desc-input" style="height:150rpx" placeholder="统一设置文件描述（选填）" bindinput="inputFileDesc" value="{{fileDesc}}"></textarea>
+    <button class="main-btn submit-up-btn submit-btn" bindtap="submitUpload">开始上传</button>
+  </view>
+</view>
