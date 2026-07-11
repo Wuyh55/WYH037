@@ -1,0 +1,64 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/albumDetail/detail",
+    "pages/create/create",
+    "pages/recycle/recycle",
+    "pages/mine/mine",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/editUser/edit",
+    "pages/previewImg/previewImg",
+    "pages/editImgNote/editImgNote",
+    "pages/renameAlbum/renameAlbum",
+    "pages/editAlbumDesc/editAlbumDesc",
+    "pages/upload/upload",
+    "pages/setCover/setCover",
+    "pages/checkIn/checkIn",
+    "pages/cityCheck/cityCheck",
+    "pages/provinceCheckDetail/provinceCheckDetail"
+  ],
+  "subPackages": [],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff9ef",
+    "navigationBarTitleText": "凉嘟嘟",
+    "navigationBarTextStyle": "black"
+  },
+  "cloud": true,
+  
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#409EFF",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/create/create",
+        "text": "创建",
+        "iconPath": "images/create.png",
+        "selectedIconPath": "images/create-active.png"
+      },
+      {
+        "pagePath": "pages/recycle/recycle",
+        "text": "回收",
+        "iconPath": "images/recycle.png",
+        "selectedIconPath": "images/recycle-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

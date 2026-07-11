@@ -1,0 +1,19 @@
+# 依赖文件夹
+node_modules/
+miniprogram_npm/
+
+# 开发者工具私有配置（带个人设备信息，不能上传）
+project.private.config.json
+.project.private.config.json
+
+# 系统缓存文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+
+# vscode配置
+.vscode/
+# 工具缓存
+.project/

@@ -1,0 +1,91 @@
+page {
+  background-color: #f7f3ec;
+  font-size: 30rpx;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+}
+/* 通用输入框 */
+.input-box {
+  width: 90%;
+  margin: 20rpx auto;
+  border: 1rpx solid #e0d6c8;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  background: #fffdf8;
+  box-sizing: border-box;
+}
+/* 主棕色按钮（统一UI） */
+.main-btn {
+  width: 90%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background: #a67c52;
+  color: #ffffff;
+  border-radius: 12rpx;
+  margin: 30rpx auto;
+  border: none;
+}
+/* 浅米色次要按钮 */
+.mini-btn {
+  background: #e8d9c6;
+  color: #554433;
+}
+/* 红色删除按钮 */
+.del-btn {
+  background: #d84c4c;
+  color: #fff;
+}
+/* 弹窗遮罩层 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 弹窗容器 */
+.popup {
+  width: 85%;
+  background: #fffdf8;
+  border-radius: 16rpx;
+  padding: 40rpx;
+}
+/* 弹窗标题 */
+.pop-title {
+  font-size: 36rpx;
+  text-align: center;
+  margin-bottom: 30rpx;
+  color: #805c3b;
+  font-weight: bold;
+}
+/* 弹窗按钮行 */
+.btn-row {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+.btn-row button {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+/* 弹性居中 */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 空状态提示 */
+.empty-tip {
+  text-align: center;
+  margin-top: 200rpx;
+  color: #999;
+  font-size: 28rpx;
+}
