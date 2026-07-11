@@ -1,0 +1,55 @@
+<view class="detail-header">
+  <!-- 相册标题+时间 -->
+  <text class="title">{{album.name}}</text>
+  <text class="create-time">创建时间：{{album.createTime}}</text>
+
+  <!-- 相册简介完整保留 -->
+  <view wx:if="{{album.desc}}" class="album-desc">
+    <text>相册简介：{{album.desc}}</text>
+  </view>
+
+  <!-- 横向导航按钮栏，均分一排展示 -->
+  <view class="btn-group">
+    <button bindtap="goUploadPage">上传</button>
+    <button bindtap="goRenamePage">改名</button>
+    <button bindtap="goEditDescPage">编辑</button>
+    <button class="del-btn" bindtap="deleteAlbum">删除</button>
+  </view>
+</view>
+
+<!-- 相册图片网格 -->
+<view class="img-grid">
+  <view class="img-item" wx:for="{{album.fileList}}" wx:key="url" bindtap="goPreviewPage" data-index="{{index}}">
+    <image src="{{item.url}}" mode="aspectFill"></image>
+    <text class="img-title">{{item.title}}</text>
+    <text class="img-desc">{{item.desc}}</text>
+  </view>
+</view>
+
+<!-- 空相册提示 -->
+<view wx:if="{{album.fileList.length === 0}}" class="empty-album-tip">
+  <text>相册暂无图片，点击上方上传文件添加照片</text>
+</view>
+
+<!-- 全屏预览外层遮罩，移除左右切换按钮，仅支持手指左右滑动切换图片 -->
+<view wx:if="{{showPreview}}" class="preview-mask" bindtap="closePreview">
+  <view class="preview-wrap" catchtap="stopBubble">
+    <!-- 关闭按钮 -->
+    <view class="close-preview" bindtap="closePreview">×</view>
+    <swiper class="swiper-box" current="{{currentImgIndex}}" bindchange="onSwiperChange">
+      <swiper-item wx:for="{{album.fileList}}" wx:key="url">
+        <image class="big-img" src="{{item.url}}" mode="aspectFit"></image>
+      </swiper-item>
+    </swiper>
+    <!-- 当前图片备注 -->
+    <view class="preview-desc">
+      <text>图片备注：{{album.fileList[currentImgIndex].desc}}</text>
+    </view>
+    <!-- 图片操作按钮：三个按钮分别绑定独立方法 -->
+    <view class="preview-op-btn">
+      <button bindtap="goEditImgPage">编辑备注</button>
+      <button bindtap="deleteSingleImg">删除</button>
+      <button bindtap="downloadImg">下载</button>
+    </view>
+  </view>
+</view>
