@@ -1,0 +1,63 @@
+<!-- 第一行：居中欢迎文字 -->
+<view class="welcome-top">
+  <text class="welcome-text" wx:if="{{userInfo}}">欢迎回来，{{userInfo.username}} 📷</text>
+  <text class="welcome-text" wx:else>欢迎回来，</text>
+</view>
+
+<!-- 第二行导航栏：整行只保留搜索，占满整行宽度 -->
+<view class="nav-bar">
+  <!-- 搜索框独占整行，flex:1占满全部 -->
+  <view class="search-full-bar">
+    <picker bindchange="changeSearchType" value="{{searchTypeIndex}}" range="{{searchTypeList}}">
+      <view class="search-select">{{searchTypeList[searchTypeIndex]}} ▾</view>
+    </picker>
+    <view class="search-input-wrap">
+      <input wx:if="{{searchType === 'name'}}" class="search-input" placeholder="搜索相册名称..." value="{{searchValue}}" bindinput="inputSearchValue"/>
+      <input wx:if="{{searchType === 'time'}}" class="search-input" placeholder="输入时间（2026/2026-12/2026-12-27）" value="{{timeKeyword}}" bindinput="inputTimeKeyword"/>
+    </view>
+    <view class="search-btn-box" bindtap="submitSearch">🔍</view>
+  </view>
+</view>
+
+<!-- 相册标题 -->
+<text class="section-title">{{pageTitle}}</text>
+
+<!-- 相册3列网格 -->
+<view class="album-grid">
+  <view wx:for="{{albumList}}" wx:key="id" class="album-card" bindtap="goDetail" data-id="{{item.id}}">
+    <view class="album-cover-box">
+      <image wx:if="{{item.cover}}" src="{{item.cover}}" class="album-cover" mode="aspectFill"></image>
+      <image wx:elif="{{item.fileList && item.fileList.length > 0}}" src="{{item.fileList[0].url}}" class="album-cover" mode="aspectFill"></image>
+    </view>
+    <view class="album-info">
+      <text class="album-name">{{item.name}} ({{item.photo_num}})</text>
+      <text class="album-time">{{item.createTime}}</text>
+      <!-- 只保留 设置封面 单个按钮 -->
+      <view class="album-action-btns">
+        <text bindtap="goSetCover" data-id="{{item.id}}">设置封面</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 空相册提示 -->
+<view wx:if="{{albumList.length === 0}}" class="empty-tip">
+  <text class="empty-icon">🖼️</text>
+  <text class="empty-text">{{emptyText}}</text>
+</view>
+
+<!-- 分页控件 -->
+<view wx:if="{{totalAlbums > pageSize}}" class="pagination">
+  <text class="page-btn {{currentPage === 1 ? 'disabled' : ''}}" bindtap="prevPage">上一页</text>
+  <block wx:for="{{pageNumList}}" wx:key="*this">
+    <text class="page-btn {{item === currentPage ? 'active' : ''}}" bindtap="switchPage" data-page="{{item}}">{{item}}</text>
+  </block>
+  <text class="page-btn {{currentPage === totalPages ? 'disabled' : ''}}" bindtap="nextPage">下一页</text>
+  <text class="page-desc">共{{totalPages}}页 / {{totalAlbums}}个相册</text>
+</view>
+
+<!-- 左上角头像 -->
+<view class="avatar-float">
+  <image wx:if="{{userInfo.avatar}}" src="{{userInfo.avatar}}" class="avatar-img" mode="aspectFill"></image>
+  <image wx:else src="/images/default_avatar.jpg" class="avatar-img" mode="aspectFill"></image>
+</view>
