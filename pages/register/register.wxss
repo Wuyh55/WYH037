@@ -1,0 +1,159 @@
+/* pages/register/register.wxss */
+page {
+  background: #fff8e8;
+  padding: 60rpx 40rpx 30rpx;
+  margin: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.wrap {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ============ 头像区域 ============ */
+.avatar-group {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.avatar-desc {
+  display: block;
+  font-size: 30rpx;
+  color: #776959;
+  text-align: left;
+  margin-bottom: 20rpx;
+}
+
+.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: block;
+  margin: 0 auto;
+}
+
+.avatar-btn {
+  width: 220rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  background: #c4a88a;
+  color: #fff;
+  border-radius: 8rpx;
+  margin: 16rpx auto 0;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+/* ============ 通用表单项 ============ */
+.item {
+  margin-bottom: 28rpx;
+  width: 100%;
+}
+
+.label {
+  font-size: 32rpx;
+  color: #665848;
+  display: block;
+  margin-bottom: 10rpx;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  height: 76rpx;
+  border: 2rpx solid #e0d6c8;
+  background: #ffffff;
+  border-radius: 10rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+/* ============ 验证码行（修复版） ============ */
+.code-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 36rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.code-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.code-left .label {
+  margin-bottom: 10rpx;
+}
+
+.code-input {
+  width: 100% !important;
+}
+
+.code-box {
+  width: 180rpx;
+  min-width: 180rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  background: #e8f2fc;
+  border-radius: 10rpx;
+  letter-spacing: 8rpx;
+  font-size: 32rpx;
+  flex-shrink: 0;
+  color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 36rpx;  /* 与输入框对齐 */
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  font-family: "Courier New", monospace;
+}
+
+.code-box:active {
+  opacity: 0.7;
+  transform: scale(0.97);
+}
+
+/* ============ 注册按钮 ============ */
+.reg-btn {
+  width: 100%;
+  height: 96rpx;
+  display: block;
+  margin: 0 auto 30rpx;
+  background: #b88c64;
+  color: #fff;
+  font-size: 36rpx;
+  border-radius: 12rpx;
+  border: none;
+}
+
+.reg-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+button::after {
+  border: none;
+}
+
+/* ============ 底部提示 ============ */
+.bottom-tip {
+  text-align: center;
+  font-size: 30rpx;
+  color: #776959;
+  margin-top: 20rpx;
+}
+
+.link {
+  color: #b88c64;
+  margin-left: 8rpx;
+  text-decoration: underline;
+}
