@@ -1,0 +1,81 @@
+page {
+  background: #fff8e6;
+  padding: 60rpx 30rpx;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+.title {
+  display: block;
+  text-align: center;
+  font-size: 40rpx;
+  color: #8c6d31;
+  margin-bottom: 60rpx;
+  font-weight: 500;
+}
+.form-item {
+  margin-bottom: 40rpx;
+}
+.form-label {
+  display: block;
+  font-size: 30rpx;
+  color: #8c6d31;
+  margin-bottom: 20rpx;
+}
+.inp {
+  width: 100%;
+  height: 100rpx;
+  border: 1rpx solid #e2d4bf;
+  border-radius: 14rpx;
+  padding: 0 24rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+}
+.inp::placeholder {
+  color: #b9a88c;
+}
+.picker-box {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  border: 1rpx solid #e2d4bf;
+  border-radius: 14rpx;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btns {
+  display: flex;
+  gap: 40rpx;
+  justify-content: center;
+  margin-top: 80rpx;
+}
+.btn-gray, .btn-main {
+  width: 220rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14rpx;
+  font-size: 30rpx;
+  border: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.2s;
+}
+.btn-gray:active, .btn-main:active {
+  opacity: 0.8;
+}
+.btn-gray {
+  background: #e8ddcb;
+  color: #8c6d31;
+}
+.btn-main {
+  background: #b89668;
+  color: #fff;
+}

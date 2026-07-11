@@ -1,0 +1,20 @@
+<view class="create-box">
+  <text class="title">创建新相册</text>
+
+  <view class="form-item">
+    <text class="form-label">相册名称</text>
+    <input class="inp" placeholder="请为你的相册起个名字" value="{{newAlbumName}}" bindinput="inputNewAlbum"/>
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">父相册</text>
+    <picker bindchange="changeParentAlbum" value="{{parentIndex}}" range="{{parentNameList}}">
+      <view class="picker-box">{{parentNameList[parentIndex]}}</view>
+    </picker>
+  </view>
+
+  <view class="btns">
+    <button class="btn-gray" bindtap="goBack">取消</button>
+    <button class="btn-main" bindtap="submitCreateAlbum">确认创建</button>
+  </view>
+</view>
