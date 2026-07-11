@@ -1,0 +1,130 @@
+/* app.wxss */
+page {
+  background: #fff8e6;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.page-wrap {
+  width: 100%;
+  max-width: 750rpx;
+  padding: 40rpx 30rpx 100rpx;
+  box-sizing: border-box;
+  background: #fff8e6;
+  min-height: 100vh;
+}
+
+/* 页面标题 */
+.title {
+  font-size: 40rpx;
+  color: #6b4423;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+  margin-bottom: 40rpx;
+}
+
+/* 城市选择框 */
+.city-select {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+
+/* 上传图片框 */
+.upload-box {
+  width: 100%;
+  box-sizing: border-box;
+  height: 360rpx;
+  background: #f7f3ec;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+.upload-box image {
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
+  object-fit: contain;
+  background: #f7f3ec;
+}
+.tip {
+  font-size: 28rpx;
+  color: #b9a88c;
+  text-align: center;
+}
+
+/* 备注输入框 */
+.input-desc {
+  width: 100%;
+  box-sizing: border-box;
+  height: 180rpx;
+  background: #f7f3ec;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+  font-size: 28rpx;
+  margin-bottom: 40rpx;
+  line-height: 1.6;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.input-desc::-webkit-input-placeholder {
+  color: #b9a88c;
+}
+
+/* 按钮容器 */
+.btn-row {
+  display: flex;
+  gap: 24rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 取消按钮 */
+.btn-cancel {
+  flex: 1;
+  height: 90rpx;
+  background: #f0ece6;
+  color: #665544;
+  border: none;
+  border-radius: 45rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.06);
+}
+
+/* 确认按钮 */
+.btn-submit {
+  flex: 1;
+  height: 90rpx;
+  background: linear-gradient(135deg, #b89668 0%, #a67c52 100%);
+  color: #fff;
+  border: none;
+  border-radius: 45rpx;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+button::after {
+  border: none;
+}

@@ -1,0 +1,134 @@
+/* pages/checkin/checkin.wxss */
+page {
+  background: #fff8e6;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.page-wrap {
+  width: 100%;
+  max-width: 750rpx;
+  padding: 30rpx 30rpx 40rpx;
+  box-sizing: border-box;
+  background: #fff8e6;
+  min-height: 100vh;
+}
+
+.empty-tip {
+  text-align: center;
+  font-size: 28rpx;
+  color: #b9a88c;
+  margin-top: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.6;
+}
+
+.list-wrap {
+  height: calc(100vh - 200rpx);
+  padding-bottom: 40rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.province-group {
+  background: #ffffff;
+  border-radius: 28rpx;
+  padding: 36rpx;
+  margin-bottom: 32rpx;
+  box-shadow: 0 6rpx 24rpx rgba(107, 68, 35, 0.08);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.prov-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 28rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0e6d8;
+  width: 100%;
+}
+
+.prov-tag {
+  background: linear-gradient(135deg, #f5e6d3 0%, #f0d5a8 100%);
+  padding: 10rpx 24rpx;
+  border-radius: 24rpx;
+  font-size: 32rpx;
+  color: #6b4423;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.prov-count {
+  font-size: 26rpx;
+  color: #b9a88c;
+  flex-shrink: 0;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 36rpx;
+  color: #ccc;
+  flex-shrink: 0;
+}
+
+.img-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+  width: 100%;
+}
+
+.img-item {
+  background: #f7f3ec;
+  border-radius: 16rpx;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1 / 1; /* 保持正方形 */
+}
+
+.img-item image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #f0ebe0;
+}
+
+.city-name {
+  display: block;
+  font-size: 24rpx;
+  color: #886e57;
+  text-align: center;
+  padding: 12rpx 0;
+  background: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============ 图片加载占位 ============ */
+.img-item image[lazy-load] {
+  background: #f0ebe0;
+}
+
+.img-item image:not([src]) {
+  background: #f0ebe0;
+}
+
+/* ============ 图片预览点击反馈 ============ */
+.img-item:active {
+  opacity: 0.8;
+  transform: scale(0.97);
+  transition: all 0.15s;
+}

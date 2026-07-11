@@ -8,12 +8,26 @@ Page({
 
   async onLoad(options) {
     const albumId = options.id;
-    const res = await cloudGetAlbum(albumId);
-    if (res.success) {
-      this.setData({ album: res.data });
-    } else {
-      wx.showToast({ title: "相册不存在", icon: "none" });
+    if (!albumId) {
+      wx.showToast({ title: "相册ID无效", icon: "none" });
       setTimeout(() => wx.navigateBack(), 1000);
+      return;
+    }
+    wx.showLoading({ title: "加载中..." })
+    try {
+      const res = await cloudGetAlbum(albumId);
+      if (res.success) {
+        this.setData({ album: res.data });
+      } else {
+        wx.showToast({ title: res.msg || "相册不存在", icon: "none" });
+        setTimeout(() => wx.navigateBack(), 1000);
+      }
+    } catch (err) {
+      console.error('loadAlbum error:', err)
+      wx.showToast({ title: "加载失败，请重试", icon: "none" });
+      setTimeout(() => wx.navigateBack(), 1000);
+    } finally {
+      wx.hideLoading()
     }
   },
 
@@ -21,9 +35,14 @@ Page({
     const pages = getCurrentPages();
     const currPage = pages[pages.length - 1];
     const albumId = currPage.options.id;
-    const res = await cloudGetAlbum(albumId);
-    if (res.success) {
-      this.setData({ album: res.data });
+    if (!albumId) return;
+    try {
+      const res = await cloudGetAlbum(albumId);
+      if (res.success) {
+        this.setData({ album: res.data });
+      }
+    } catch (err) {
+      console.error('onShow loadAlbum error:', err)
     }
   },
 

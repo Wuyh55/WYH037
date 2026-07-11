@@ -82,24 +82,31 @@ Page({
     const now = new Date().getTime()
     const validList = []
 
-    // ⚠️ 遍历处理每条数据
+    // ️ 遍历处理每条数据，云函数存的是 item 字段，统一映射为 data
     for (const item of rawList) {
       const delDate = this.parseDate(item.deleteTime)
       if (!delDate) continue
       
       const diffDay = (now - delDate.getTime()) / (1000 * 60 * 60 * 24)
       if (diffDay <= 7) {
-        // ⚠️ 关键修复：转换图片链接
+        // 云函数存的字段是 item，把 item 里的字段合并到顶层，保留原有 data
+        const itemContent = item.item || {}
+        // 把 albumId、albumName 等字段提升到顶层
+        if (itemContent.albumId) item.albumId = itemContent.albumId
+        if (itemContent.albumName) item.albumName = itemContent.albumName
+        // data 字段：优先用 item.data（图片信息），其次用 item 本身（相册信息）
+        if (!item.data || Object.keys(item.data).length === 0) {
+          item.data = itemContent.data || itemContent
+        }
+
         let imageUrl = ''
         
         if (item.type === 'album') {
-          // 相册封面
-          if (item.data && item.data.cover) {
+          if (item.data.cover) {
             imageUrl = await this.getTempUrl(item.data.cover)
             item.data.cover = imageUrl
           }
-          // 相册内的图片
-          if (item.data && item.data.fileList && item.data.fileList.length > 0) {
+          if (item.data.fileList && item.data.fileList.length > 0) {
             for (const file of item.data.fileList) {
               if (file.url) {
                 file.url = await this.getTempUrl(file.url)
@@ -107,14 +114,12 @@ Page({
             }
           }
         } else if (item.type === 'img') {
-          // 照片
-          if (item.data) {
-            const imgField = item.data.image || item.data.url || ''
-            if (imgField) {
-              imageUrl = await this.getTempUrl(imgField)
-              item.data.image = imageUrl
-              item.data.url = imageUrl
-            }
+          // 图片URL可能在 image、url 或 fileList[0].url 中
+          const imgField = item.data.image || item.data.url || (item.data.fileList && item.data.fileList[0] && item.data.fileList[0].url) || ''
+          if (imgField) {
+            imageUrl = await this.getTempUrl(imgField)
+            item.data.image = imageUrl
+            item.data.url = imageUrl
           }
         }
         
@@ -161,7 +166,7 @@ Page({
           return wx.showToast({ title: "获取相册失败", icon: "none" })
         }
         const allAlbum = albumRes.data
-        const targetAlbum = allAlbum.find(a => a.id === target.data.albumId)
+        const targetAlbum = allAlbum.find(a => a.id === target.albumId)
         
         if (!targetAlbum) {
           wx.hideLoading()

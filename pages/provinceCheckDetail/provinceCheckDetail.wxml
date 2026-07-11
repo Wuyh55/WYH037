@@ -1,0 +1,40 @@
+<view class="page-wrap">
+  <view class="header">
+    <text class="back-btn" bindtap="goBack">‹</text>
+    <text class="page-title">{{province}} - 打卡记录</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <view wx:if="{{checkList.length === 0}}" class="empty-tip">
+    <text class="empty-icon">📸</text>
+    <text>该省份暂无打卡记录</text>
+  </view>
+
+  <scroll-view wx:else scroll-y class="list-wrap">
+    <view class="img-grid">
+      <view wx:for="{{checkList}}" wx:key="time" class="img-item" bindtap="goPreview" data-index="{{index}}">
+        <image src="{{item.img}}" mode="aspectFill"></image>
+        <view class="img-info">
+          <text class="city-name">{{item.city}}</text>
+          <text class="record-time">{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{showPreview}}" class="preview-mask" bindtap="closePreview">
+    <view class="preview-wrap" catchtap="stopBubble">
+      <view class="close-preview" bindtap="closePreview">×</view>
+      <swiper class="swiper-box" current="{{currentImgIndex}}" bindchange="onSwiperChange">
+        <swiper-item wx:for="{{checkList}}" wx:key="time">
+          <image class="big-img" src="{{item.img}}" mode="aspectFit"></image>
+        </swiper-item>
+      </swiper>
+      <view class="preview-info">
+        <text class="preview-city">{{checkList[currentImgIndex].city}}</text>
+        <text class="preview-desc">{{checkList[currentImgIndex].desc || '暂无备注'}}</text>
+        <text class="preview-time">{{checkList[currentImgIndex].time}}</text>
+      </view>
+    </view>
+  </view>
+</view>

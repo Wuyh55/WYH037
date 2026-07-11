@@ -1,0 +1,16 @@
+<view class="wrap">
+  <!-- 头像区域 -->
+  <view class="head flex-center">
+    <image src="{{userInfo.avatar}}" class="ava"></image>
+    <button class="sm-btn" bindtap="changeAvatar">更换头像</button>
+  </view>
+
+  <!-- 输入表单 -->
+  <input class="inp" placeholder="用户名" value="{{userInfo.username}}" bindinput="inputName"/>
+  <input class="inp" placeholder="邮箱" value="{{userInfo.email}}" bindinput="inputMail"/>
+  <input class="inp" placeholder="旧密码（修改密码必填）" password bindinput="inputOldPwd"/>
+  <input class="inp" placeholder="新密码（6-20位字母数字，不填不修改）" password bindinput="inputNewPwd"/>
+
+  <!-- 保存按钮 -->
+  <button class="lg-btn" bindtap="saveUserInfo">保存修改</button>
+</view>

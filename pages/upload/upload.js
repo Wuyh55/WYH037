@@ -108,6 +108,6 @@ Page({
     }
 
     wx.showToast({ title: "上传成功" });
-    setTimeout(() => wx.navigateBack(), 1500);
+    setTimeout(() => wx.switchTab({ url: "/pages/index/index" }), 1500);
   }
 });

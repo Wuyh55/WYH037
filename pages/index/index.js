@@ -54,10 +54,19 @@ Page({
 
   async loadLocalAlbum() {
     const user = this.data.userInfo;
-    const res = await cloudGetAlbumList(user.id);
-    const allAlbum = res.success ? res.data : [];
-    this.setData({ allAlbumData: allAlbum });
-    this.renderPageAlbum(allAlbum);
+    if (!user) return;
+    wx.showLoading({ title: "加载中..." })
+    try {
+      const res = await cloudGetAlbumList(user.id);
+      const allAlbum = res.success ? res.data : [];
+      this.setData({ allAlbumData: allAlbum });
+      this.renderPageAlbum(allAlbum);
+    } catch (err) {
+      console.error('loadLocalAlbum error:', err)
+      wx.showToast({ title: '加载失败，请重试', icon: 'none' })
+    } finally {
+      wx.hideLoading()
+    }
   },
 
   renderPageAlbum(sourceArr) {

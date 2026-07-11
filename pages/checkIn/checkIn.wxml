@@ -1,0 +1,23 @@
+<!-- pages/checkIn/checkIn.wxml -->
+<view class="page-wrap">
+  <view wx:if="{{groupList.length === 0}}" class="empty-tip">
+    <text class="empty-icon">🌍</text>
+    <text>暂无打卡记录，去「我的」页面点亮省份吧</text>
+  </view>
+  <scroll-view wx:else scroll-y class="list-wrap">
+    <view wx:for="{{groupList}}" wx:key="province" class="province-group">
+      <view class="prov-header" bindtap="goProvinceDetail" data-province="{{item.province}}">
+        <text class="prov-tag">{{item.province}}</text>
+        <text class="prov-count">{{item.items.length}} 个城市</text>
+        <text class="arrow">›</text>
+      </view>
+      <view class="img-grid">
+        <!-- ⚠️ 关键修复：img 改成 image -->
+        <view wx:for="{{item.items}}" wx:for-item="record" wx:key="time" class="img-item" bindtap="previewImage" data-img="{{record.image}}" data-province="{{item.province}}">
+          <image src="{{record.image}}" mode="aspectFill" lazy-load></image>
+          <text class="city-name">{{record.city}}</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,156 @@
+page {
+  background: #fff8e6;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+
+.page-wrap {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60rpx 30rpx 30rpx;
+  background: linear-gradient(180deg, #f5e6d3 0%, #fff8e6 100%);
+}
+
+.back-btn {
+  font-size: 56rpx;
+  color: #6b4423;
+  width: 80rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  color: #6b4423;
+  font-weight: 600;
+}
+
+.placeholder {
+  width: 80rpx;
+}
+
+.empty-tip {
+  text-align: center;
+  font-size: 28rpx;
+  color: #b9a88c;
+  margin-top: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.6;
+}
+
+.list-wrap {
+  height: calc(100vh - 180rpx);
+  padding: 30rpx;
+  padding-bottom: 60rpx;
+  box-sizing: border-box;
+}
+
+.img-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.img-item {
+  background: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(107, 68, 35, 0.06);
+}
+
+.img-item image {
+  width: 100%;
+  height: 240rpx;
+}
+
+.img-info {
+  padding: 16rpx;
+}
+
+.city-name {
+  display: block;
+  font-size: 26rpx;
+  color: #6b4423;
+  font-weight: 500;
+  margin-bottom: 6rpx;
+}
+
+.record-time {
+  display: block;
+  font-size: 22rpx;
+  color: #b9a88c;
+}
+
+.preview-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  z-index: 9999;
+}
+
+.preview-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-preview {
+  position: absolute;
+  top: 40rpx;
+  right: 40rpx;
+  font-size: 64rpx;
+  color: #fff;
+  z-index: 99999;
+}
+
+.swiper-box {
+  flex: 1;
+  width: 100%;
+}
+
+.big-img {
+  width: 100%;
+  height: 100%;
+}
+
+.preview-info {
+  padding: 30rpx;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.preview-city {
+  display: block;
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.preview-desc {
+  display: block;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 12rpx;
+}
+
+.preview-time {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}

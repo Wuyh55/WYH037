@@ -17,16 +17,22 @@ Page({
   },
   async getAllParentAlbum() {
     const user = getUser();
-    const res = await cloudGetAlbumList(user.id);
-    const all = res.success ? res.data : [];
-    const nameArr = ['无（顶级相册）'];
-    all.forEach(item => nameArr.push(item.name))
-    this.setData({
-      parentAlbumList: all,
-      parentNameList: nameArr,
-      newAlbumName: "",
-      parentIndex: 0
-    })
+    if (!user) return;
+    try {
+      const res = await cloudGetAlbumList(user.id);
+      const all = res.success ? res.data : [];
+      const nameArr = ['无（顶级相册）'];
+      all.forEach(item => nameArr.push(item.name))
+      this.setData({
+        parentAlbumList: all,
+        parentNameList: nameArr,
+        newAlbumName: "",
+        parentIndex: 0
+      })
+    } catch (err) {
+      console.error('getAllParentAlbum error:', err)
+      wx.showToast({ title: '加载失败', icon: 'none' })
+    }
   },
   changeParentAlbum(e) {
     this.setData({ parentIndex: e.detail.value })

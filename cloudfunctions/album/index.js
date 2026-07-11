@@ -11,7 +11,13 @@ exports.main = async (event, context) => {
   try {
     switch (action) {
       case 'add': {
-        const res = await db.collection(COLLECTION_NAME).add({  // ⚠️ 改成 COLLECTION_NAME
+        if (!data || !data.name || !data.uid) {
+          return { success: false, msg: '相册名称和用户ID不能为空' }
+        }
+        if (data.name.length > 50) {
+          return { success: false, msg: '相册名称不能超过50个字符' }
+        }
+        const res = await db.collection(COLLECTION_NAME).add({
           data: {
             name: data.name,
             uid: data.uid,
@@ -26,15 +32,24 @@ exports.main = async (event, context) => {
         return { success: true, data: { id: res._id, ...data } }
       }
       case 'list': {
-        const res = await db.collection(COLLECTION_NAME).where({ uid: data.uid }).orderBy('createTime', 'desc').get()  // ⚠️ 改成 COLLECTION_NAME
+        if (!data || !data.uid) {
+          return { success: false, msg: '用户ID不能为空' }
+        }
+        const res = await db.collection(COLLECTION_NAME).where({ uid: data.uid }).orderBy('createTime', 'desc').get()
         return { success: true, data: res.data.map(item => ({ ...item, id: item._id })) }
       }
       case 'get': {
-        const res = await db.collection(COLLECTION_NAME).doc(data.id).get()  // ⚠️ 改成 COLLECTION_NAME
+        if (!data || !data.id) {
+          return { success: false, msg: '相册ID不能为空' }
+        }
+        const res = await db.collection(COLLECTION_NAME).doc(data.id).get()
         return { success: true, data: { ...res.data, id: res.data._id } }
       }
       case 'update': {
-        await db.collection(COLLECTION_NAME).doc(data.id).update({  // ⚠️ 改成 COLLECTION_NAME
+        if (!data || !data.id) {
+          return { success: false, msg: '相册ID不能为空' }
+        }
+        await db.collection(COLLECTION_NAME).doc(data.id).update({
           data: {
             name: data.name,
             fileList: data.fileList,
@@ -47,19 +62,25 @@ exports.main = async (event, context) => {
         return { success: true, msg: '更新成功' }
       }
       case 'updateCover': {
-        await db.collection(COLLECTION_NAME).doc(data.id).update({  // ⚠️ 改成 COLLECTION_NAME
+        if (!data || !data.id) {
+          return { success: false, msg: '相册ID不能为空' }
+        }
+        await db.collection(COLLECTION_NAME).doc(data.id).update({
           data: { cover: data.cover, updateTime: new Date().toLocaleString() }
         })
         return { success: true, msg: '封面更新成功' }
       }
       case 'delete': {
-        await db.collection(COLLECTION_NAME).doc(data.id).remove()  // ⚠️ 改成 COLLECTION_NAME
+        if (!data || !data.id) {
+          return { success: false, msg: '相册ID不能为空' }
+        }
+        await db.collection(COLLECTION_NAME).doc(data.id).remove()
         return { success: true, msg: '删除成功' }
       }
       default:
         return { success: false, msg: '未知操作' }
     }
   } catch (err) {
-    return { success: false, msg: err.message }
+    return { success: false, msg: '服务器内部错误，请稍后重试' }
   }
 }

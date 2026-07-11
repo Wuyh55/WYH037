@@ -1,0 +1,23 @@
+<view class="page-wrap">
+  <text class="title">打卡 {{province}}</text>
+  <!-- 城市选择下拉 -->
+  <picker mode="selector" value="{{cityIndex}}" range="{{cityList}}" bindchange="onCityChange">
+    <view class="city-select">
+      <text>选择城市：{{currCity || '请选择'}}</text>
+    </view>
+  </picker>
+
+  <!-- 上传图片区域 -->
+  <view class="upload-box" bindtap="chooseImg">
+    <image wx:if="{{popImg}}" src="{{popImg}}" mode="aspectFill"></image>
+    <text wx:else class="tip">点击上传打卡照片</text>
+  </view>
+
+  <!-- 备注输入 -->
+  <textarea class="input-desc" placeholder="写点旅行备注" bindinput="inputDesc" value="{{popDesc}}"></textarea>
+
+  <view class="btn-row">
+    <button class="btn-cancel" bindtap="goBack">取消</button>
+    <button class="btn-submit" bindtap="submitCheck">确认打卡</button>
+  </view>
+</view>

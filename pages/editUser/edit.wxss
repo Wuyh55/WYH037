@@ -1,0 +1,67 @@
+page {
+  background: #fff8e6;
+}
+/* 外层容器 */
+.wrap {
+  padding: 40rpx 30rpx;
+}
+/* 头像区域 垂直居中 */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+/* 圆形头像，加浅色边框更精致 */
+.ava {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 50%;
+  border: 4rpx solid #fff;
+  box-shadow: 0 2rpx 12rpx rgba(138,110,73,0.12);
+  margin-bottom: 24rpx;
+}
+/* 小型按钮：更换头像 */
+.sm-btn {
+  width: 220rpx;
+  height: 68rpx;
+  background: #e8ddcb;
+  color: #704e32;
+  border: none;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+/* 统一输入框样式 */
+.inp {
+  width: 100%;
+  height: 96rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  padding: 0 30rpx;
+  margin-bottom: 24rpx;
+  font-size: 30rpx;
+  box-sizing: border-box;
+}
+.inp::placeholder {
+  color: #b9a88c;
+}
+/* 底部大保存按钮 */
+.lg-btn {
+  width: 100%;
+  height: 100rpx;
+  background: #b89668;
+  color: #ffffff;
+  border: none;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  margin-top: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}

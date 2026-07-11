@@ -207,7 +207,10 @@ Page({
   async drawChinaMap() {
     const query = wx.createSelectorQuery().in(this)
     query.select('#chinaMap').fields({ node: true, size: true, rect: true }).exec((res) => {
-      if (!res || !res[0] || !res[0].node) return
+      if (!res || !res[0] || !res[0].node) {
+        console.warn('Canvas节点获取失败，无法绘制地图')
+        return
+      }
       const canvas = res[0].node
       const ctx = canvas.getContext('2d')
       const dpr = wx.getSystemInfoSync().pixelRatio
