@@ -1,0 +1,13 @@
+<view class="preview-page">
+  <swiper class="swiper-box" current="{{currentImgIndex}}" bindchange="swiperChange">
+    <swiper-item wx:for="{{album.fileList}}" wx:key="url">
+      <image class="big-img" src="{{item.url}}" mode="aspectFill"></image>
+    </swiper-item>
+  </swiper>
+  <view class="preview-desc">图片备注：{{album.fileList[currentImgIndex].desc}}</view>
+  <view class="preview-btn-group">
+    <button class="edit-img-btn" bindtap="goEditImgPage">编辑图片文字</button>
+    <button class="del-img-btn" bindtap="deleteSingleImg">删除这张照片</button>
+  </view>
+  <button class="back-btn" bindtap="goBack">返回相册</button>
+</view>
