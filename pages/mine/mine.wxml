@@ -1,0 +1,116 @@
+<!-- 顶部渐变头部区域 -->
+<view class="mine-bg">
+  <view class="avatar-wrap flex-center" bindtap="clickAvatar">
+    <image wx:if="{{userInfo}}" src="{{userInfo.avatar}}" class="avatar"></image>
+    <image wx:else src="/images/default_avatar.jpg" class="avatar"></image>
+    <text wx:if="{{!userInfo}}" class="avatar-tip">点击头像登录/注册账号</text>
+    <text wx:else class="username">{{userInfo.username}}</text>
+  </view>
+
+  <view wx:if="{{userInfo}}" class="mine-btn-row">
+    <button class="btn-edit" bindtap="goEditUser">
+      <text class="btn-icon">✎</text>
+      <text class="btn-text">编辑个人资料</text>
+    </button>
+    <button class="btn-logout" bindtap="logout">
+      <text class="btn-text">退出登录</text>
+    </button>
+  </view>
+</view>
+
+<!-- 未登录提示 -->
+<view wx:if="{{!userInfo}}" class="mine-empty-tip">登录后可同步相册数据</view>
+
+<!-- 相册统计卡片 -->
+<view wx:if="{{userInfo}}" class="block">
+  <view class="stat-card">
+    <view class="stat-item">
+      <text class="stat-icon">🖼</text>
+      <text class="stat-num">{{stat.albumCount}}</text>
+      <text class="stat-label">相册总数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-icon">📷</text>
+      <text class="stat-num">{{stat.imgCount}}</text>
+      <text class="stat-label">照片总数</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-icon">🗑</text>
+      <text class="stat-num">{{stat.recycleCount}}</text>
+      <text class="stat-label">回收站</text>
+    </view>
+  </view>
+</view>
+
+<!-- 旅行打卡 -->
+<view wx:if="{{userInfo}}" class="block">
+  <text class="block-title">我的旅行打卡</text>
+  <view class="map-card">
+    <!-- 指示点 -->
+    <view class="swiper-dots">
+      <view class="dot {{mapView === 0 ? 'active' : ''}}"></view>
+      <view class="dot {{mapView === 1 ? 'active' : ''}}"></view>
+    </view>
+    <swiper class="map-swiper" current="{{mapView}}" bindchange="onMapSwiperChange">
+      <!-- 左页：文字网格版 -->
+      <swiper-item>
+        <view class="swiper-page">
+          <scroll-view scroll-y class="province-scroll">
+            <view class="province-grid">
+              <view 
+                wx:for="{{provinces}}" 
+                wx:key="name" 
+                wx:for-item="provItem"
+                class="province-item {{provItem.allChecked ? 'allChecked' : (provItem.checked ? 'checked' : '')}}"
+                bindtap="onProvinceTap"
+                data-province="{{provItem.name}}"
+              >
+                <text class="province-name">{{provItem.name}}</text>
+                <text wx:if="{{provItem.allChecked}}" class="check-icon">✓</text>
+              </view>
+            </view>
+          </scroll-view>
+          <text class="map-tip">← 滑动查看地图版</text>
+        </view>
+      </swiper-item>
+      <!-- 右页：Canvas地图版 -->
+      <swiper-item>
+        <view class="swiper-page">
+          <view class="canvas-wrap" catchtouchmove="stopBubble">
+            <canvas type="2d" id="chinaMap" class="china-map-canvas" bindtouchend="onCanvasTap"></canvas>
+          </view>
+          <view class="map-legend">
+            <view class="legend-item">
+              <view class="legend-dot" style="background:#e8e0d5"></view>
+              <text>未打卡</text>
+            </view>
+            <view class="legend-item">
+              <view class="legend-dot" style="background:#d4a574"></view>
+              <text>已打卡</text>
+            </view>
+            <view class="legend-item">
+              <view class="legend-dot" style="background:#b89668"></view>
+              <text>全部完成</text>
+            </view>
+          </view>
+          <text class="map-tip">滑动返回文字版 →</text>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+  <button class="sm-btn" bindtap="goCheckList">查看全部打卡记录</button>
+</view>
+
+<!-- 更多工具 -->
+<view wx:if="{{userInfo}}" class="block">
+  <text class="block-title">更多工具</text>
+  <view class="tool-grid">
+    <button class="tool-btn" bindtap="exportAllImg">批量导出全部照片</button>
+    <button class="tool-btn" bindtap="clearCache">清理本地图片缓存</button>
+  </view>
+</view>
+
+<!-- 底部版本提示 -->
+<view class="footer-tip">
+  <text>相册回忆录 v1.0 · 图片仅本地存储，删除7天内可在回收站恢复</text>
+</view>

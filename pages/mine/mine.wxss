@@ -1,0 +1,319 @@
+page {
+  background: #fff8e6 !important;
+  margin: 0;
+  padding: 0;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mine-bg {
+  background: linear-gradient(180deg, #f5e6d3 0%, #fff8e6 100%);
+  padding: 60rpx 30rpx 50rpx;
+  border-bottom-left-radius: 50rpx;
+  border-bottom-right-radius: 50rpx;
+  position: relative;
+}
+
+.avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 6rpx solid #ffffff;
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.08);
+}
+.avatar-tip {
+  margin-top: 20rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+.username {
+  margin-top: 16rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.mine-btn-row {
+  display: flex;
+  gap: 24rpx;
+}
+.mine-btn-row button {
+  flex: 1;
+  height: 90rpx;
+  border: none;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.06);
+  background: none;
+}
+.btn-edit {
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe4c4 100%) !important;
+  color: #8b6914;
+}
+.btn-logout {
+  background: linear-gradient(135deg, #fce4e4 0%, #f8d4d4 100%) !important;
+  color: #d9534f;
+}
+.btn-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+.btn-text {
+  font-size: 28rpx;
+}
+
+.mine-empty-tip {
+  text-align: center;
+  margin-top: 80rpx;
+  font-size: 30rpx;
+  color: #b9a88c;
+}
+
+.block {
+  margin: 30rpx 30rpx 40rpx;
+}
+.block-title {
+  font-size: 32rpx;
+  color: #6b4423;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 28rpx;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 36rpx 0;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.04);
+}
+.stat-item {
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stat-item:not(:last-child)::after {
+  content: "";
+  width: 1rpx;
+  height: 70rpx;
+  background: #f0e6d8;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.stat-icon {
+  font-size: 52rpx;
+  margin-bottom: 12rpx;
+}
+.stat-num {
+  font-size: 38rpx;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: block;
+}
+
+.map-card {
+  background: #ffffff;
+  border-radius: 30rpx;
+  padding: 20rpx 20rpx 30rpx;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+/* swiper 切换指示点 */
+.swiper-dots {
+  display: flex;
+  justify-content: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+.dot {
+  width: 20rpx;
+  height: 8rpx;
+  border-radius: 4rpx;
+  background: #e0d5c5;
+  transition: all 0.3s;
+}
+.dot.active {
+  width: 36rpx;
+  background: #d4a574;
+}
+
+/* swiper */
+.map-swiper {
+  height: 900rpx;
+}
+.swiper-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 省份滚动区域 */
+.province-scroll {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* canvas地图 */
+.canvas-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #faf7f2;
+  border-radius: 20rpx;
+  margin: 0 10rpx;
+}
+.china-map-canvas {
+  width: 630rpx;
+  height: 480rpx;
+}
+
+/* 地图图例 */
+.map-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30rpx;
+  margin-top: 16rpx;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 22rpx;
+  color: #999;
+}
+.legend-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 6rpx;
+}
+.province-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+.province-item {
+  background: #f2f2f2;
+  border-radius: 16rpx;
+  padding: 24rpx 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s;
+}
+.province-item.checked {
+  background: linear-gradient(135deg, #f5b88a 0%, #e8996c 50%, #d4825a 100%);
+}
+.province-item.allChecked {
+  background: linear-gradient(135deg, #c9a66b 0%, #b89668 50%, #9a7b4f 100%);
+}
+.province-name {
+  font-size: 28rpx;
+  color: #666666;
+  text-align: center;
+}
+.province-item.checked .province-name,
+.province-item.allChecked .province-name {
+  color: #fff;
+  font-weight: 500;
+}
+.check-icon {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  font-size: 20rpx;
+  color: #fff;
+  font-weight: bold;
+}
+.map-tip {
+  display: block;
+  text-align: center;
+  font-size: 26rpx;
+  color: #999999;
+  margin-top: 0;
+}
+.map-tip {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 16rpx;
+}
+.sm-btn {
+  width: 100%;
+  height: 72rpx;
+  margin-top: 20rpx;
+  background: #fff5e6;
+  color: #8b6914;
+  border: none;
+  border-radius: 36rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.sm-btn::after {
+  border: none;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+.tool-btn {
+  height: 88rpx;
+  background: #ffffff;
+  color: #6b4423;
+  border: 1rpx solid #f0e6d8;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+}
+.tool-btn::after {
+  border: none;
+}
+
+.footer-tip {
+  padding: 40rpx 30rpx 100rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #ccc;
+  line-height: 1.6;
+}
