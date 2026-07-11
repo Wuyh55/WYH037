@@ -1,0 +1,45 @@
+<view class="wrap">
+
+  <!-- 头像模块 -->
+  <view class="avatar-group">
+    <text class="avatar-desc">用户头像（可选）</text>
+    <image class="avatar" src="{{avatar}}" bindtap="chooseAvatar"></image>
+    <view class="avatar-btn" bindtap="chooseAvatar">选择头像</view>
+  </view>
+
+  <!-- 用户名 -->
+  <view class="item">
+    <text class="label">用户名</text>
+    <input class="input" placeholder="" value="{{username}}" bindinput="inputUsername"/>
+  </view>
+
+  <!-- 密码 -->
+  <view class="item">
+    <text class="label">密码</text>
+    <input class="input" password placeholder="" value="{{password}}" bindinput="inputPassword"/>
+  </view>
+
+  <!-- 确认密码 -->
+  <view class="item">
+    <text class="label">确认密码</text>
+    <input class="input" password placeholder="" value="{{confirm_pwd}}" bindinput="inputConfirm"/>
+  </view>
+
+  <!-- 邮箱 -->
+  <view class="item">
+    <text class="label">邮箱</text>
+    <input class="input" placeholder="例: user@163.com" value="{{email}}" bindinput="inputEmail"/>
+  </view>
+
+  <!-- 验证码行 -->
+  <view class="code-row">
+    <view class="code-left">
+      <text class="label">验证码</text>
+      <input class="input code-input" placeholder="请输入验证码" value="{{captcha}}" bindinput="inputCaptcha"/>
+    </view>
+    <text class="code-box" bindtap="refreshCaptcha">{{localCaptcha}}</text>
+  </view>
+
+  <button class="reg-btn" bindtap="submitRegister">注册</button>
+  <view class="bottom-tip">已有账号？<text class="link" bindtap="goLogin">去登录</text></view>
+</view>
