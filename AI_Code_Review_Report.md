@@ -1,6 +1,6 @@
 # AI Code Review 报告
 
-> 使用 Trae AI 对"岁岁安"微信小程序项目进行代码审查
+> 使用 Trae AI 对"凉嘟嘟"微信小程序项目进行代码审查
 > 审查时间: 2026-06-20
 > 项目仓库: https://github.com/Wuyh55/WYH037
 
