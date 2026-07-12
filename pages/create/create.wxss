@@ -4,14 +4,7 @@ page {
   box-sizing: border-box;
   min-height: 100vh;
 }
-.title {
-  display: block;
-  text-align: center;
-  font-size: 40rpx;
-  color: #8c6d31;
-  margin-bottom: 60rpx;
-  font-weight: 500;
-}
+
 .form-item {
   margin-bottom: 40rpx;
 }
