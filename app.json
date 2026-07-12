@@ -25,6 +25,7 @@
     "navigationBarTitleText": "凉嘟嘟",
     "navigationBarTextStyle": "black"
   },
+  "lazyCodeLoading": "requiredComponents",
   "cloud": true,
   
   "tabBar": {
