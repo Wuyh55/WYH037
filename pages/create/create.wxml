@@ -1,6 +1,4 @@
 <view class="create-box">
-  <text class="title">创建新相册</text>
-
   <view class="form-item">
     <text class="form-label">相册名称</text>
     <input class="inp" placeholder="请为你的相册起个名字" value="{{newAlbumName}}" bindinput="inputNewAlbum"/>
