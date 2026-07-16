@@ -73,7 +73,6 @@ huiyi/
 | 微信开发者工具 | 最新稳定版 | [下载地址](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html) |
 | 微信小程序 AppID | - | 需在[微信公众平台](https://mp.weixin.qq.com/)注册获取 |
 | 微信云开发 | 基础库 2.2.3+ | 在开发者工具中开通 |
-| Node.js | v12+ | 云函数本地调试需要 |
 
 ### 运行步骤
 
