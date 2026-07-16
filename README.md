@@ -1,7 +1,10 @@
 # 凉嘟嘟 - 微信小程序相册管理应用
 
 > 项目仓库: https://github.com/Wuyh55/WYH037
-> 线上Demo地址:https://raw.githubusercontent.com/Wuyh55/WYH037/master/screenshots/体验版二维码.png（注：扫此码查看内容需管理员同意，请耐心等待）
+>
+> 线上Demo地址: https://raw.githubusercontent.com/Wuyh55/WYH037/master/screenshots/体验版二维码.png
+> （注：扫此码查看内容需管理员同意，请耐心等待）
+>
 > 项目演示录屏在文件夹screenshots里
 
 
