@@ -27,318 +27,134 @@
 
 ```
 huiyi/
-├── pages/              # 页面目录（18个页面）
-│   ├── index/          # 首页 - 相册列表
-│   ├── create/         # 创建相册
-│   ├── recycle/        # 回收站
-│   ├── mine/           # 个人中心
-│   ├── login/          # 登录
-│   ├── register/       # 注册
-│   ├── albumDetail/    # 相册详情
-│   ├── upload/         # 上传照片
-│   ├── setCover/       # 设置封面
-│   ├── checkIn/        # 打卡记录
-│   ├── cityCheck/      # 城市打卡
-│   ── ...
-├── cloudfunctions/     # 云函数目录
-│   ├── login/          # 用户管理
-│   ├── album/          # 相册操作
-│   ├── recycle/        # 回收站管理
-│   └── checkIn/        # 打卡记录管理
-├── utils/              # 工具模块
-│   ├── storage.js      # 云开发请求封装
-│   ├── chinaMapData.js # 中国地图坐标数据
-│   └── ...
-├── components/         # 自定义组件
-├── images/             # 静态图片资源
-├── app.js              # 小程序入口
-├── app.json            # 全局配置
-└── app.wxss            # 全局样式
+├── cloudfunctions/         # 云函数目录
+│   ├── album/              # 相册操作云函数
+│   ├── checkIn/            # 打卡记录云函数
+│   ├── login/              # 用户管理云函数
+│   └── recycle/            # 回收站管理云函数
+├── components/             # 自定义组件
+│   └── navigation-bar/     # 自定义导航栏
+├── images/                 # 静态图片资源
+├── pages/                  # 页面目录
+│   ├── albumDetail/        # 相册详情
+│   ├── checkIn/            # 打卡记录列表
+│   ├── cityCheck/          # 城市打卡
+│   ├── create/             # 创建相册
+│   ├── editAlbumDesc/      # 编辑相册简介
+│   ├── editImgNote/        # 编辑图片备注
+│   ├── editUser/           # 编辑用户信息
+│   ├── index/              # 首页 - 相册列表
+│   ├── login/              # 登录
+│   ├── mine/               # 个人中心
+│   ├── previewImg/         # 图片预览
+│   ├── provinceCheckDetail/# 省份打卡详情
+│   ├── recycle/            # 回收站
+│   ├── register/           # 注册
+│   ├── renameAlbum/        # 重命名相册
+│   ├── setCover/           # 设置封面
+│   └── upload/             # 上传照片
+├── utils/                  # 工具模块
+│   ├── chinaMapData.js     # 中国地图省份坐标数据
+│   ├── request.js          # 请求封装
+│   ├── runtime.js          # 运行时工具
+│   ├── storage.js          # 云开发请求封装
+│   └── util.js             # 通用工具函数
+├── app.js                  # 小程序入口
+├── app.json                # 全局配置
+└── app.wxss                # 全局样式
 ```
 
 ## 安装与运行指南
 
 ### 环境要求
 
-- 微信开发者工具（最新稳定版）
-- 微信小程序 AppID
-- 微信云开发环境
+| 工具/服务 | 版本要求 | 说明 |
+|-----------|---------|------|
+| 微信开发者工具 | 最新稳定版 | [下载地址](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html) |
+| 微信小程序 AppID | - | 需在[微信公众平台](https://mp.weixin.qq.com/)注册获取 |
+| 微信云开发 | 基础库 2.2.3+ | 在开发者工具中开通 |
+| Node.js | v12+ | 云函数本地调试需要 |
 
 ### 运行步骤
 
-1. **克隆项目**
-   ```bash
-   git clone https://github.com/Wuyh/WYH037.git
-   ```
+#### 第一步：克隆项目
 
-2. **导入项目**
-   - 打开微信开发者工具
-   - 选择「导入项目」
-   - 选择项目目录 `huiyi/`
-   - 填入你的 AppID
-
-3. **配置云开发**
-   - 在微信开发者工具中点击「云开发」
-   - 创建云开发环境
-   - 在 `app.js` 中修改 `env` 为你的云开发环境ID
-
-4. **创建数据库集合**
-   - 在云开发控制台创建以下集合：
-     - `users` - 用户信息
-     - `album` - 相册数据
-     - `recycle` - 回收站
-     - `checkIn` - 打卡记录
-
-5. **部署云函数**
-   - 右键 `cloudfunctions/login` → 上传并部署：云端安装依赖
-   - 右键 `cloudfunctions/album` → 上传并部署：云端安装依赖
-   - 右键 `cloudfunctions/recycle` → 上传并部署：云端安装依赖
-   - 右键 `cloudfunctions/checkIn` → 上传并部署：云端安装依赖
-
-6. **编译运行**
-   - 点击微信开发者工具的「编译」按钮
-   - 在模拟器中预览效果
-
-## API 文档
-
-### 云函数接口
-
-所有云函数通过 `wx.cloud.callFunction()` 调用，统一返回格式：
-
-```json
-{
-  "success": true/false,
-  "msg": "提示信息",
-  "data": {}
-}
+```bash
+git clone https://github.com/Wuyh55/WYH037.git
+cd WYH037
 ```
 
-#### 1. login 云函数 - 用户管理
+#### 第二步：导入项目
 
-**注册**
+1. 打开微信开发者工具
+2. 点击「+」号或选择「导入项目」
+3. 项目目录选择克隆下来的 `WYH037` 文件夹
+4. AppID 填写你在微信公众平台注册的小程序 AppID
+5. 点击「导入」
+
+> 如果没有 AppID，可选择「测试号」进行开发调试，但云开发功能需要正式 AppID。
+
+#### 第三步：配置云开发环境
+
+1. 在微信开发者工具中，点击顶部工具栏的「云开发」按钮（云朵图标）
+2. 首次使用需开通云开发，点击「开通」并创建环境
+3. 记录环境 ID（格式如 `cloud1-xxxxxx`）
+4. 打开项目根目录下的 `app.js`，将 `env` 修改为你的环境 ID：
+
 ```javascript
-wx.cloud.callFunction({
-  name: 'login',
-  data: {
-    action: 'register',
-    data: { username, password, avatar }
-  }
+wx.cloud.init({
+  env: '你的环境ID',  // 替换为实际环境ID
+  traceUser: true
 })
 ```
 
-**登录**
-```javascript
-wx.cloud.callFunction({
-  name: 'login',
-  data: {
-    action: 'login',
-    data: { username, password }
-  }
-})
-```
+5. 同时修改以下4个云函数中的 `env` 为相同的环境 ID：
+   - `cloudfunctions/login/index.js`
+   - `cloudfunctions/album/index.js`
+   - `cloudfunctions/recycle/index.js`
+   - `cloudfunctions/checkIn/index.js`
 
-**更新用户信息**
-```javascript
-wx.cloud.callFunction({
-  name: 'login',
-  data: {
-    action: 'updateUser',
-    data: { avatar, username, email }
-  }
-})
-```
+#### 第四步：创建数据库集合
 
-#### 2. album 云函数 - 相册操作
+1. 在微信开发者工具中点击「云开发」→「数据库」
+2. 点击「+」号，依次创建以下4个集合：
 
-**创建相册**
-```javascript
-wx.cloud.callFunction({
-  name: 'album',
-  data: {
-    action: 'add',
-    data: { name, uid, fileList, cover, desc, photo_num }
-  }
-})
-```
+| 集合名称 | 用途 | 权限设置 |
+|---------|------|---------|
+| `users` | 存储用户注册信息（用户名、密码、头像） | 仅创建者可读写 |
+| `album` | 存储相册数据（名称、图片列表、封面） | 仅创建者可读写 |
+| `recycle` | 存储回收站数据（软删除的相册和照片） | 仅创建者可读写 |
+| `checkIn` | 存储旅行打卡记录（省份、城市、图片） | 仅创建者可读写 |
 
-**获取相册列表**
-```javascript
-wx.cloud.callFunction({
-  name: 'album',
-  data: {
-    action: 'list',
-    data: { uid }
-  }
-})
-```
+3. 每个集合的权限建议设置为「仅创建者可读写」，保证数据安全
 
-**获取相册详情**
-```javascript
-wx.cloud.callFunction({
-  name: 'album',
-  data: {
-    action: 'detail',
-    data: { id }
-  }
-})
-```
+#### 第五步：部署云函数
 
-**更新相册**
-```javascript
-wx.cloud.callFunction({
-  name: 'album',
-  data: {
-    action: 'update',
-    data: { id, name, fileList, cover, desc, photo_num }
-  }
-})
-```
+在微信开发者工具的左侧文件树中，依次对以下4个云函数执行部署：
 
-**删除相册**
-```javascript
-wx.cloud.callFunction({
-  name: 'album',
-  data: {
-    action: 'delete',
-    data: { id }
-  }
-})
-```
+1. 右键 `cloudfunctions/login` → 选择「上传并部署：云端安装依赖」
+2. 右键 `cloudfunctions/album` → 选择「上传并部署：云端安装依赖」
+3. 右键 `cloudfunctions/recycle` → 选择「上传并部署：云端安装依赖」
+4. 右键 `cloudfunctions/checkIn` → 选择「上传并部署：云端安装依赖」
 
-#### 3. recycle 云函数 - 回收站管理
+> 部署成功后，云函数文件夹旁会显示云朵图标。每个云函数部署约需 10-30 秒。
 
-**移入回收站**
-```javascript
-wx.cloud.callFunction({
-  name: 'recycle',
-  data: {
-    action: 'add',
-    data: { item, type, uid }
-  }
-})
-```
+#### 第六步：编译运行
 
-**获取回收站列表**
-```javascript
-wx.cloud.callFunction({
-  name: 'recycle',
-  data: {
-    action: 'list',
-    data: { uid }
-  }
-})
-```
+1. 点击微信开发者工具顶部工具栏的「编译」按钮
+2. 在左侧模拟器中预览小程序效果
+3. 也可点击「预览」生成二维码，用手机微信扫码体验
 
-**恢复**
-```javascript
-wx.cloud.callFunction({
-  name: 'recycle',
-  data: {
-    action: 'restore',
-    data: { id, type }
-  }
-})
-```
+### 功能测试流程
 
-**彻底删除**
-```javascript
-wx.cloud.callFunction({
-  name: 'recycle',
-  data: {
-    action: 'delete',
-    data: { id }
-  }
-})
-```
+按以下顺序测试各功能模块：
 
-**清空回收站**
-```javascript
-wx.cloud.callFunction({
-  name: 'recycle',
-  data: {
-    action: 'clear',
-    data: { uid }
-  }
-})
-```
+1. **注册登录** → 注册新账号 → 登录
+2. **创建相册** → 填写名称 → 创建成功后自动跳转上传页
+3. **上传照片** → 选择图片 → 上传到云存储
+4. **相册管理** → 设置封面、编辑简介、重命名、删除
+5. **回收站** → 查看已删除内容 → 恢复或彻底删除
+6. **旅行打卡** → 选择省份 → 选择城市 → 上传打卡照片
+7. **个人中心** → 查看统计数据 → 编辑个人资料
 
-#### 4. checkIn 云函数 - 打卡记录管理
-
-**添加打卡记录**
-```javascript
-wx.cloud.callFunction({
-  name: 'checkIn',
-  data: {
-    action: 'add',
-    data: { userId, province, city, image, desc }
-  }
-})
-```
-
-**获取打卡记录**
-```javascript
-wx.cloud.callFunction({
-  name: 'checkIn',
-  data: {
-    action: 'list',
-    data: { userId }
-  }
-})
-```
-
-**获取省份打卡记录**
-```javascript
-wx.cloud.callFunction({
-  name: 'checkIn',
-  data: {
-    action: 'provinceList',
-    data: { userId, province }
-  }
-})
-```
-
-## 数据库设计
-
-### users 集合
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | String | 用户ID |
-| username | String | 用户名 |
-| password | String | 密码 |
-| avatar | String | 头像URL |
-| openid | String | 微信openid |
-| createTime | String | 创建时间 |
-
-### album 集合
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | String | 相册ID |
-| name | String | 相册名称 |
-| uid | String | 用户ID |
-| fileList | Array | 图片文件列表 |
-| photo_num | Number | 照片数量 |
-| cover | String | 封面图URL |
-| desc | String | 相册简介 |
-| createTime | String | 创建时间 |
-| updateTime | String | 更新时间 |
-
-### recycle 集合
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | String | 记录ID |
-| item | Object | 原始数据 |
-| type | String | 类型(album/img) |
-| uid | String | 用户ID |
-| deleteTime | String | 删除时间 |
-| expireTime | String | 过期时间 |
-
-### checkIn 集合
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| _id | String | 记录ID |
-| userId | String | 用户ID |
-| province | String | 省份 |
-| city | String | 城市 |
-| image | String | 打卡图片URL |
-| desc | String | 打卡描述 |
-| time | String | 打卡时间 |
+### 运行效果图
