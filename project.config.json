@@ -3,7 +3,9 @@
   "compileType": "miniprogram",
   "libVersion": "trial",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "screenshots" }
+    ],
     "include": []
   },
   "setting": {
@@ -38,5 +40,6 @@
     "tabSize": 2
   },
   "simulatorPluginLibVersion": {},
-  "cloudfunctionRoot": "cloudfunctions/"
+  "cloudfunctionRoot": "cloudfunctions/",
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }

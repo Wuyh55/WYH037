@@ -1,188 +1,358 @@
 # AI 辅助编程 Prompt 日志
 
-> 本项目使用 Trae AI (基于 Cursor/CodeX) 进行辅助开发，以下为开发过程中的关键 Prompt 记录。
+**项目名称**：凉嘟嘟 - 旅行相册打卡小程序  
+**开发工具**：微信小程序开发者工具 + 腾讯云开发  
+**AI 辅助工具**：Trae AI（功能搭建）、豆包AI（样式优化、排错、环境配置）  
+**日志说明**：本文档完整记录项目从初始化、页面开发、云开发迁移、Bug 修复、样式优化的全部 AI 对话 Prompt，按时间顺序归档。
 
 ---
 
-## Prompt 1: 项目初始化与"我的"页面开发
+## 一、Trae AI 开发记录（功能搭建、页面开发、业务逻辑）
 
-**时间**: 2026-06-15
+### Prompt 1：项目初始化 & 我的页面开发
 
-**Prompt**:
+**时间**：2026-06-15
+
+**需求 Prompt**：
 ```
 帮我设置微信小程序开发环境，根据截图样式开发"我的"页面，包含渐变头像区域、水平胶囊按钮、相册数据统计卡片、旅行打卡地图模块、独立功能按钮和页脚文本。
 ```
 
-**AI 返回结果**:
-- 生成了 `pages/mine/mine.wxml` 页面结构
-- 生成了 `pages/mine/mine.wxss` 样式文件（渐变背景、响应式布局）
-- 生成了 `pages/mine/mine.js` 逻辑文件
+**AI 实现内容**：
+- 生成 mine 页面完整结构 wxml、wxss、js
+- 实现渐变顶部背景、头像卡片、数据统计三栏布局
+- 完成编辑/退出胶囊按钮、功能入口、页脚文案
 
-**对应文件**: `pages/mine/mine.wxml`, `pages/mine/mine.wxss`, `pages/mine/mine.js`
+**涉及文件**：`pages/mine/mine.wxml`、`pages/mine/mine.wxss`、`pages/mine/mine.js`
 
 ---
 
-## Prompt 2: 地图可视化功能开发
+### Prompt 2：旅行打卡地图可视化功能开发
 
-**时间**: 2026-06-16
+**时间**：2026-06-16
 
-**Prompt**:
+**需求 Prompt**：
 ```
 我的旅行打卡那里，文字打卡后省份变色和地图变亮两个版本可以滑动切换，往右滑动后文字版切换到地图版本，接一个地图API接口，打卡后城市地图变亮，风格要和主题匹配。
 ```
 
-**AI 返回结果**:
-- 创建了 `utils/chinaMapData.js`，包含中国34个省份的Canvas坐标数据
-- 修改了 `pages/mine/mine.wxml`，添加 Swiper 组件实现左右滑动
-- 修改了 `pages/mine/mine.js`，添加 Canvas 地图绘制和点击检测逻辑
-- 修改了 `pages/mine/mine.wxss`，添加地图相关样式
+**AI 实现内容**：
+- 创建全国省份 Canvas 坐标数据文件
+- 实现 swiper 左右滑动切换「文字列表 / 地图可视化」
+- 编写 Canvas 绘制、省份点亮、点击检测逻辑
 
-**对应文件**: `utils/chinaMapData.js`, `pages/mine/mine.wxml`, `pages/mine/mine.js`, `pages/mine/mine.wxss`
+**涉及文件**：`utils/chinaMapData.js`、`pages/mine/mine.wxml`、`pages/mine/mine.js`、`pages/mine/mine.wxss`
 
 ---
 
-## Prompt 3: 云开发迁移
+### Prompt 3：项目整体云开发迁移
 
-**时间**: 2026-06-17
+**时间**：2026-06-17
 
-**Prompt**:
+**需求 Prompt**：
 ```
 我现在弄了云开发，你帮我把这些代码用云开发弄一下。
 ```
 
-**AI 返回结果**:
-- 创建了4个云函数：`login`、`album`、`recycle`、`checkIn`
-- 修改了 `utils/storage.js`，将本地存储操作替换为云函数调用
-- 设计了4个数据库集合：`users`、`album`、`recycle`、`checkIn`
-- 修改了所有页面的数据获取逻辑，从本地存储改为云函数调用
+**AI 实现内容**：
+- 创建四大云函数：login、album、checkIn、recycle
+- 设计数据库集合：users、album、checkIn、recycle
+- 将全局本地存储替换为云函数请求
+- 重构所有页面数据读写逻辑
 
-**对应文件**: `cloudfunctions/` 目录下所有文件, `utils/storage.js`, 所有页面的 `.js` 文件
+**涉及文件**：`cloudfunctions/` 全部云函数、`utils/storage.js`、全局页面 js
 
 ---
 
-## Prompt 4: 打卡记录页面优化
+### Prompt 4：打卡记录页面重构（省份分组 + 网格详情）
 
-**时间**: 2026-06-18
+**时间**：2026-06-18
 
-**Prompt**:
+**需求 Prompt**：
 ```
 我打卡记录那里的样式不行，给我优化优化。我的想法是各省份打卡的图，同一个省份的放在一起，点击进去能看到不同城市的打卡图片，图片网格分布。
 ```
 
-**AI 返回结果**:
-- 优化了 `pages/checkIn/checkIn.wxml` 和 `checkIn.wxss`，实现按省份分组展示
-- 创建了 `pages/provinceCheckDetail/` 省份详情页，网格展示该省份所有城市的打卡图片
-- 实现了省份→城市的两级导航
+**AI 实现内容**：
+- 全部打卡页面按省份分组展示
+- 新建省份打卡详情页，网格展示城市打卡图
+- 实现二级页面跳转结构
 
-**对应文件**: `pages/checkIn/checkIn.wxml`, `pages/checkIn/checkIn.wxss`, `pages/provinceCheckDetail/` 全部文件
+**涉及文件**：`pages/checkIn/checkIn.wxml`、`pages/checkIn/checkIn.wxss`、`pages/provinceCheckDetail/` 全部文件
 
 ---
 
-## Prompt 5: 相册创建与跳转修复
+### Prompt 5：创建相册后自动跳转上传页
 
-**时间**: 2026-06-18
+**时间**：2026-06-18
 
-**Prompt**:
+**需求 Prompt**：
 ```
 当我点击创建相册的时候，创建好相册了就跳转到上传页面去。
 ```
 
-**AI 返回结果**:
-- 修改了 `pages/create/create.js` 中的 `submitCreateAlbum()` 函数
-- 将 `wx.redirectTo` 改为 `wx.navigateTo`（修复tabBar页面路由问题）
-- 添加了详细的错误处理和日志输出
-- 修改了 `utils/storage.js` 中 `cloudAddAlbum` 函数，添加 try-catch
+**AI 实现内容**：
+- 修复 tab 页面跳转 bug，redirectTo 改为 navigateTo
+- 新增创建成功自动跳转上传页面逻辑
+- 完善 try-catch 错误捕获
 
-**对应文件**: `pages/create/create.js`, `utils/storage.js`
+**涉及文件**：`pages/create/create.js`、`utils/storage.js`
 
 ---
 
-## Prompt 6: 封面设置功能
+### Prompt 6：相册封面设置功能修复
 
-**时间**: 2026-06-18
+**时间**：2026-06-18
 
-**Prompt**:
+**需求 Prompt**：
 ```
 设置封面那里，怎么设置不了，我需要可以点击照片来设置。为什么我设置封面了，首页那里没有更新最新封面图？没有设置封面，那就默认第一张图来当封面。
 ```
 
-**AI 返回结果**:
-- 修改了 `pages/setCover/setCover.wxml`，添加图片点击事件
-- 修改了 `pages/setCover/setCover.js`，实现点击选择封面逻辑
-- 修改了 `pages/index/index.wxml`，优先使用设置的封面图，否则使用第一张
+**AI 实现内容**：
+- 实现点击图片选择封面
+- 修复封面不刷新问题
+- 无封面自动兜底第一张图片
 
-**对应文件**: `pages/setCover/setCover.wxml`, `pages/setCover/setCover.js`, `pages/index/index.wxml`
+**涉及文件**：`pages/setCover/setCover.wxml`、`pages/setCover/setCover.js`、`pages/index/index.wxml`
 
 ---
 
-## Prompt 7: 回收站网格布局与图片显示
+### Prompt 7：回收站网格布局 + 图片显示优化
 
-**时间**: 2026-06-19
+**时间**：2026-06-19
 
-**Prompt**:
+**需求 Prompt**：
 ```
 回收站删除的照片和相册怎么看不到图片样子，删除照片的照片要看到样子，删除的相册的话要看到这个相册的封面。还有就是让它们呈现网格那种排布，万一删除的相册和照片比较多，就把布局变为网格式布局，需要小巧的。
 ```
 
-**AI 返回结果**:
-- 修改了 `pages/recycle/recycle.wxml`，改为3列网格布局
-- 修改了 `pages/recycle/recycle.wxss`，添加网格样式
-- 修改了 `pages/upload/upload.js`，上传时调用 `wx.cloud.uploadFile()` 上传到云存储
-- 修改了 `pages/albumDetail/detail.js`，删除照片时也上传到云存储
-- 添加了图片预览功能
+**AI 实现内容**：
+- 回收站改为三列网格紧凑布局
+- 图片上传云端、删除保留封面预览
+- 支持图片预览
 
-**对应文件**: `pages/recycle/recycle.wxml`, `pages/recycle/recycle.wxss`, `pages/recycle/recycle.js`, `pages/upload/upload.js`
+**涉及文件**：`pages/recycle/recycle.wxml`、`pages/recycle/recycle.wxss`、`pages/recycle/recycle.js`、`pages/upload/upload.js`
 
 ---
 
-## Prompt 8: 登录注册头像同步
+### Prompt 8：注册头像同步登录页
 
-**时间**: 2026-06-19
+**时间**：2026-06-19
 
-**Prompt**:
+**需求 Prompt**：
 ```
 登录那里，注册后上传头像没有同步到登录页哎，给它同步到登录页。
 ```
 
-**AI 返回结果**:
-- 修改了 `pages/login/login.js`，添加 `avatar` 数据，`onLoad` 接收参数
-- 修改了 `pages/login/login.wxml`，头像改为动态绑定
-- 修改了 `pages/register/register.js`，注册成功后带头像参数跳转
+**AI 实现内容**：
+- 注册成功带头像参数跳转
+- 登录页动态接收并渲染头像
 
-**对应文件**: `pages/login/login.js`, `pages/login/login.wxml`, `pages/register/register.js`
+**涉及文件**：`pages/login/login.js`、`pages/login/login.wxml`、`pages/register/register.js`
 
 ---
 
-## Prompt 9: 云函数环境配置修复
+### Prompt 9：云函数数据库集合报错修复
 
-**时间**: 2026-06-19
+**时间**：2026-06-19
 
-**Prompt**:
+**需求 Prompt**：
 ```
 为什么还是创建不了相册，控制台显示 collection.add:fail -502005 database collection not exist。
 ```
 
-**AI 返回结果**:
-- 发现云函数 `cloud.init()` 没有指定环境ID
-- 在所有4个云函数中添加了 `env: 'cloud1-d2gq7l5vl2c158dd6'`
-- 提示用户重新部署所有云函数
+**AI 实现内容**：
+- 定位问题：云函数缺少环境ID初始化
+- 四个云函数统一补充 env 环境配置
+- 指导创建数据库集合
 
-**对应文件**: `cloudfunctions/login/index.js`, `cloudfunctions/album/index.js`, `cloudfunctions/recycle/index.js`, `cloudfunctions/checkIn/index.js`
+**涉及文件**：`cloudfunctions/login/index.js`、`cloudfunctions/album/index.js`、`cloudfunctions/recycle/index.js`、`cloudfunctions/checkIn/index.js`
 
 ---
 
-## Prompt 10: 地图点击打卡修复
+### Prompt 10：地图点击打卡失效修复
 
-**时间**: 2026-06-20
+**时间**：2026-06-20
 
-**Prompt**:
+**需求 Prompt**：
 ```
 怎么点击地图打不了卡啊，地图那里也能跳转到上传图片打卡那个页面。
 ```
 
-**AI 返回结果**:
-- 将 Canvas 的 `bindtap` 改为 `bindtouchend`（swiper中tap事件被拦截）
-- 添加 `catchtouchmove` 阻止事件冒泡到swiper
-- 修正坐标计算，`touchend` 返回页面坐标需减去Canvas偏移量
+**AI 实现内容**：
+- swiper 冲突：bindtap 改为 bindtouchend
+- 阻止滑动冒泡
+- 修正 Canvas 坐标偏移计算
 
-**对应文件**: `pages/mine/mine.wxml`, `pages/mine/mine.js`
+**涉及文件**：`pages/mine/mine.wxml`、`pages/mine/mine.js`
+
+---
+
+## 二、豆包 AI 开发记录（样式优化、排错、云开发配置、兼容性修复）
+
+### Prompt 11：我的页面旅行打卡模块样式精细对齐
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+mine页面我的旅行打卡模块样式按截图优化，空白省份默认浅灰色底色，4列网格均匀分布，圆角、留白、文字居中对齐。
+```
+
+**优化内容**：
+- 空白省份默认 #f5f5f5 底色
+- 四列网格等宽均匀分布
+- 统一圆角、阴影、居中排版，完全匹配设计稿
+
+---
+
+### Prompt 12：cityCheck 打卡页面整体布局修复（偏右、图片变形）
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+把上传照片的那里弄大一点，使图片不变形，然后这个图的样式有点偏右了，要调整，叫你优化样式
+```
+
+**优化内容**：
+- 修复页面整体偏右、布局溢出问题
+- 上传框加高、图片等比例展示、不拉伸
+- 统一盒模型，所有卡片居中对齐
+
+---
+
+### Prompt 13：cityCheck 页面全套风格统一美化
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+这个的样式不好看啊，图片都看不清，要等比例的缩小啊，整体样式优化一下
+```
+
+**优化内容**：
+- 统一圆角、阴影、间距、按钮渐变
+- 全部文字居中、卡片层级统一
+- 完全贴合项目国风米色主题
+
+---
+
+### Prompt 14：全部打卡记录页面优化（图片比例 + 城市名称展示）
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+这个样式不好看，图片看不清，要等比例缩小，并且打卡记录把城市名也加上，不要只显示省份
+```
+
+**优化内容**：
+- 新增「省份 · 城市」双文字展示
+- 图片等比例自适应、不再拉伸模糊
+- 卡片排版分层、阴影美化
+
+---
+
+### Prompt 15：旧项目开启云开发完整配置
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+微信小程序怎么打开云开发，我之前点了不使用云开发，现在想用了，怎么开通
+```
+
+**解决内容**：
+- 完整云开发开通、授权、按量付费流程
+- app.json 开启 cloud:true
+- app.js 全局初始化云环境
+
+---
+
+### Prompt 16：云函数部署按钮灰色无法点击问题修复
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+我云开发部署不了啊，这里的都点不了、为啥部署不了
+```
+
+**解决内容**：
+- 配置云函数根目录
+- 规范云函数文件结构（index.js + package.json）
+- 权限、缓存、命名、AppID 全套排错
+
+---
+
+### Prompt 17：-501000 FUNCTION_NOT_FOUND 云函数找不到报错修复
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+控制台报 -501000 FUNCTION_NOT_FOUND 找不到云函数、timeout 超时
+```
+
+**解决内容**：
+- 排查函数未部署、大小写不一致、环境ID错误、依赖缺失
+- 给出完整自检 + 重部署流程
+
+---
+
+### Prompt 18：数据库集合不存在报错修复
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+collection.add:fail DATABASE_COLLECTION_NOT_EXIST 集合不存在
+```
+
+**解决内容**：
+- 指导手动创建 4 个数据库集合
+- 修改数据库读写权限为：所有人可读、创建者可写
+
+---
+
+### Prompt 19：回收站图片空白、布局错乱、iOS日期警告修复
+
+**时间**：2026-06-20
+
+**需求 Prompt**：
+```
+回收站看不见图、图片空白、布局不好看，还有日期格式iOS警告
+```
+
+**解决内容**：
+- 放开云存储权限，解决图片空白
+- 修复图片比例、容器塌陷问题
+- 重写回收站网格布局
+- 编写兼容 iOS 的标准化日期工具函数
+
+---
+
+## 三、项目开发总结
+
+### 1. 开发模式
+
+Trae AI 负责项目整体架构、页面搭建、业务逻辑开发；豆包 AI 负责细节优化、Bug 排查、样式对齐、云开发环境配置、兼容性修复。
+
+### 2. 技术栈
+
+微信小程序原生 + 腾讯云开发（云函数、云数据库、云存储）
+
+### 3. 核心功能
+
+- 用户注册、登录、头像同步
+- 相册创建、上传、设置封面、相册管理
+- 全国省份 + 城市旅行打卡系统
+- Canvas 全国地图可视化点亮
+- 打卡记录分级展示（省份分组 + 城市网格详情）
+- 回收站恢复、彻底删除、图片预览
+
+### 4. 整体风格
+
+统一暖米色国风界面，圆角柔和、阴影淡雅、布局居中规整，全页面视觉高度统一。
